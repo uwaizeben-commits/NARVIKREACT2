@@ -1,4 +1,5 @@
 import React from 'react'
+import contactImage from '/src/assets/contact_us.png';
 
 const Contact = () => {
     return (
@@ -11,24 +12,32 @@ const Contact = () => {
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-md 5 d-flex justify-content-center">
-                        <img src="/assets/images/contact.png" alt="Contact Us" height="300px" width="300px" />
+                    <div className="col-md-5 d-flex justify-content-center">
+                        <img src={contactImage} alt="Contact Us" className="img-fluid" style={{ maxWidth: '300px' }} />
                     </div>
                     <div className="col-md-6">
                         <form >
-                            <div class="mb-3">
-                                <label for="exampleForm" class="form-label">Full Name</label>
-                                <input type="text" class="form-control" id="exampleForm" placeholder="John Smith"/>
+                            <div className="row mb-3">
+                                <label htmlFor="exampleForm" className="col-sm-3 col-form-label fw-bold">Full Name</label>
+                                <div className="col-sm-9">
+                                    <input type="text" className="form-control" id="exampleForm" placeholder="John Smith"/>
+                                </div>
                             </div>
-                            <div class="mb-3">
-                                <label for="exampleFormControlInput1" class="form-label">Email address</label>
-                                <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com"/>
+                            <div className="row mb-3">
+                                <label htmlFor="exampleFormControlInput1" className="col-sm-3 col-form-label fw-bold">Email</label>
+                                <div className="col-sm-9">
+                                    <input type="email" className="form-control" id="exampleFormControlInput1" placeholder="name@example.com"/>
+                                </div>
                             </div>
-                            <div class="mb-3">
-                                <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
+                            <div className="row mb-3">
+                                <label htmlFor="exampleFormControlTextarea1" className="col-sm-3 col-form-label fw-bold">Message</label>
+                                <div className="col-sm-9">
+                                    <textarea className="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
+                                </div>
                             </div>
-                            <button type="submit" class="btn btn-outline-primary">Send Message</button>
+                            <div className="text-center">
+                                <button type="submit" className="btn btn-primary">Send Message</button>
+                            </div>
                         </form>
                     </div>
                     </div>

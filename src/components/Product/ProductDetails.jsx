@@ -1,58 +1,57 @@
-import React from 'react'
-import {useParams} from 'react-router-dom'
-import {useState} from 'react'
-import Data from '../../Data'
+import React, { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
 import { useDispatch } from 'react-redux';
-import {addItem, delItem} from '../../redux/actions';
-
+import { addItem } from '../../cart.actions';
+import Data from '../../Data';
 
 const ProductDetails = () => {
-  const [cartBtn, setCartBtn] = useState("Add to Cart");
-  const proid = useParams()
-  const proDetails = Data.filter(x=>x.id == proid.id);
-  const product = proDetails[0]
-  console.log(product)
+    const [product, setProduct] = useState({});
+    const { id } = useParams();
 
-  const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
-  const handleCart = (product) => {
-    if(cartBtn === "Add to Cart"){
-      dispatch(addItem(product))
-      setCartBtn("Remove from Cart")
+    const addProduct = (product) => {
+        dispatch(addItem(product));
     }
-    else{
-      dispatch(delItem(product))
-      setCartBtn("Add to Cart")
-    }
-  }
 
-  if (!product) {
+    useEffect(() => {
+        // Find the product from the Data array. The ID from params is a string.
+        const productData = Data.find(p => p.id === parseInt(id));
+        if (productData) {
+            setProduct(productData);
+        }
+    }, [id]);
+
+    const ShowProduct = () => {
+        return (
+            <>
+                <div className="col-md-6 col-sm-12">
+                    <img src={product.image} alt={product.title} className="img-fluid" />
+                </div>
+                <div className="col-md-6 col-sm-12">
+                    <h4 className="text-uppercase text-black-50">{product.category}</h4>
+                    <h1 className="display-5">{product.title}</h1>
+                    <p className="lead">
+                        {/* The local data does not have rating, so we can comment this out or add it to Data.js */}
+                        {/* Rating {product.rating && product.rating.rate} <i className="fa fa-star"></i> */}
+                    </p>
+                    <h3 className="display-6 fw-bold my-4">$ {product.price}</h3>
+                    <p className="lead">{product.description}</p>
+                    <button className="btn btn-primary px-4 py-2" onClick={() => addProduct(product)}>Add to Cart</button>
+                </div>
+            </>
+        )
+    }
+
     return (
-      <div className='container py-5 my-5 text-center'>
-        <h2>Product Not Found</h2>
-      </div>
-    );
-  }
-
-  return (
-    <div className='container py-5 my-5'>
-      <div className='row'>
-        <div className='col-md-6 d-flex justify-content-center mx-auto'>
-          <img src={product.image} alt={product.title} className="img-fluid" style={{maxHeight: "400px"}}/>
+        <div>
+            <div className="container my-5 py-5">
+                <div className="row">
+                    {product.id ? <ShowProduct /> : <div>Product not found</div>}
+                </div>
+            </div>
         </div>
-        <div className='col-md-6 d-flex flex-column justify-content-center'>
-          <h1>{product.title}</h1>
-          <hr />
-          <h2 className='my-4'>${product.price}</h2>
-          <p className='lead'>{product.description}</p>
-          <button onClick={() => handleCart(product)} className='btn btn-outline-primary my-2'>{cartBtn}</button>
-          <button className='btn btn-primary my-2'>Go to Cart</button>
-        </div>
-      </div>
-    </div>
-  )
-
-
+    )
 }
 
 export default ProductDetails;
