@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 const Header = () => {
-  const state = useSelector((state) => state.addItems)
+  const state = useSelector((state) => state.addItem)
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container-fluid py-2">
@@ -26,6 +26,12 @@ const Header = () => {
               <NavLink className="nav-link" to="/contact">Contact</NavLink>
             </li>
           </ul>
+          <NavLink to="/login" className="btn btn-outline-light me-2">
+            <i className="fa fa-sign-in me-1"></i> Login
+          </NavLink>
+          <NavLink to="/register" className="btn btn-outline-light me-2">
+            <i className="fa fa-user-plus me-1"></i> Register
+          </NavLink>
           <NavLink to="/cart" className="btn btn-outline-light">
             <i className="fa fa-shopping-cart me-1"></i> Cart ({state.length})
           </NavLink>

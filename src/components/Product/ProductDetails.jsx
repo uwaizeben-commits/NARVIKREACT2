@@ -1,23 +1,27 @@
-import React, {useState} from 'react'
+import React from 'react'
 import {useParams} from 'react-router-dom'
+import {useState} from 'react'
 import Data from '../../Data'
 import { useDispatch } from 'react-redux';
-import {addCart, delCart} from '../../redux/actions';
+import {addItem, delItem} from '../../redux/actions';
+
 
 const ProductDetails = () => {
   const [cartBtn, setCartBtn] = useState("Add to Cart");
-  const {id} = useParams()
-  const product = Data.filter(x=>x.id == id)[0];
-  const products = proDetails[0]
+  const proid = useParams()
+  const proDetails = Data.filter(x=>x.id == proid.id);
+  const product = proDetails[0]
+  console.log(product)
+
   const dispatch = useDispatch();
 
   const handleCart = (product) => {
     if(cartBtn === "Add to Cart"){
-      dispatch(addCart(product))
+      dispatch(addItem(product))
       setCartBtn("Remove from Cart")
     }
     else{
-      dispatch(delCart(product))
+      dispatch(delItem(product))
       setCartBtn("Add to Cart")
     }
   }
